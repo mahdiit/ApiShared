@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Config List</h1>
+    <table id="userListGrid" class="table table-striped table-bordered table-responsive table-hover" style="width:100%">
+        <caption><a href="/Item?mode=New">New</a></caption>
+        <thead>
+            <tr>
+                <th>DownstreamScheme</th>
+                <th>DownstreamPathTemplate</th>
+                <th>DownstreamHost</th>
+                <th>DownstreamPort</th>
+                <th></th>
+                <th>UpstreamPathTemplate</th>
+                <th>UpstreamHttpMethod</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ApiShared.Gateway.Datasource.ConfigData.Count == 0)
+            {
+                <tr>
+                    <td colspan="8"><div class="alert alert-info">اطلاعات یافت نشد</div></td>
+                </tr>
+            }
+
+            @foreach(var item in ApiShared.Gateway.Datasource.ConfigData)
+            {
+                <tr>
+                    <td>@item.DownstreamScheme</td>
+                    <td>@item.DownstreamPathTemplate</td>
+                    <td>@item.DownstreamHost</td>
+                    <td>@item.DownstreamPort</td>
+                    <td></td>
+                    <td>@item.UpstreamPathTemplate</td>
+                    <td>@item.UpstreamHttpMethod</td>
+                    <td><a href="/Item?mode=Edit&Id=@item.Id">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
