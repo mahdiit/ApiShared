@@ -1,3 +1,4 @@
+using Microsoft.IdentityModel.Logging;
 using Ocelot.Administration;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;

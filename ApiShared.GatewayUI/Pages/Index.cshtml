@@ -10,13 +10,13 @@
         <caption><a href="/Item?mode=New">New</a></caption>
         <thead>
             <tr>
-                <th>DownstreamScheme</th>
-                <th>DownstreamPathTemplate</th>
-                <th>DownstreamHost</th>
-                <th>DownstreamPort</th>
+                <th>Local Scheme</th>
+                <th>Local Template</th>
+                <th>Local Host</th>
+                <th>Local Port</th>
                 <th></th>
-                <th>UpstreamPathTemplate</th>
-                <th>UpstreamHttpMethod</th>
+                <th>Up Template</th>
+                <th>Up Http Method</th>
                 <th></th>
             </tr>
         </thead>
@@ -35,10 +35,10 @@
                     <td>@item.DownstreamPathTemplate</td>
                     <td>@item.DownstreamHost</td>
                     <td>@item.DownstreamPort</td>
-                    <td></td>
+                    <td>=&gt;</td>
                     <td>@item.UpstreamPathTemplate</td>
                     <td>@item.UpstreamHttpMethod</td>
-                    <td><a href="/Item?mode=Edit&Id=@item.Id">Edit</a></td>
+                    <td><a class="btn btn-default" href="/Item?mode=Edit&Id=@item.Id">Edit</a></td>
                 </tr>
             }
         </tbody>

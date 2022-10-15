@@ -7,24 +7,24 @@
 {
     <div class="col-4">
         <div class="form-group">
-            <label>DownstreamScheme:</label>
+            <label>Local Scheme:</label>
             <select class="form-control" asp-for="@Model.DownstreamScheme" asp-items="@ApiShared.Gateway.Datasource.DownstreamScheme"></select>
         </div>
         <div class="form-group">
-            <label for="DownstreamHost">DownstreamHost</label>
+            <label for="DownstreamHost">Local Host</label>
             <input class="form-control" asp-for="@Model.DownstreamHost" />
         </div>
         <div class="form-group">
-            <label for="DownstreamPort">DownstreamPort</label>
+            <label for="DownstreamPort">Local Port</label>
             <input class="form-control" asp-for="@Model.DownstreamPort" />
         </div>
         <div class="form-group">
-            <label for="DownstreamPathTemplate">DownstreamPathTemplate</label>
+            <label for="DownstreamPathTemplate">Local Template</label>
             <input class="form-control" asp-for="@Model.DownstreamPathTemplate" />
         </div>
         <hr />
         <div class="form-group">
-            <label for="UpstreamPathTemplate">UpstreamPathTemplate</label>
+            <label for="UpstreamPathTemplate">Up Template</label>
             <input class="form-control" asp-for="@Model.UpstreamPathTemplate" />
         </div>
         @foreach (var item in ApiShared.Gateway.Datasource.UpstreamHttpMethod){
