@@ -85,7 +85,7 @@ namespace ApiShared.Core.Data.Excel
                     if (option.SheetTitles != null && option.SheetTitles.Count >= (sheetIndex + 1))
                     {
                         hasHeader = true;
-                        var firstHeader = ws.Cells[1, 1, 1, option.ColumnNames.Count + 1];
+                        var firstHeader = ws.Cells[1, 1, 1, option.ColumnNames.Count + (option.HasRowNumber ? 1 : 0)];
                         firstHeader.Merge = true;
                         firstHeader.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         firstHeader.Style.VerticalAlignment = ExcelVerticalAlignment.Center;

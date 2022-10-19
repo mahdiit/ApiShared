@@ -8,7 +8,7 @@ namespace ApiShared.Core.Data.Dto
 {
     public class ServiceResult
     {
-        public int? ErrorCode { get; set; }
+        public int ErrorCode { get; set; } = 0;
         public string? Message { get; set; }
     }
 

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiShared.Sample.DbData
 {
-    public partial class SampleTable: EntityModel, IEntityHasCompany
+    public partial class CHARACTERISTIC_DETAIL : EntityModel
     {
-
     }
 }

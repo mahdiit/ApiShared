@@ -12,14 +12,18 @@
    "ProjectRootNamespace": "ApiShared.Sample",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
-   "SelectedToBeGenerated": 0,
+   "SelectedToBeGenerated": 2,
    "Tables": [
       {
-         "Name": "[dbo].[SampleTable]",
+         "Name": "[MasterData].[CHARACTERISTIC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[MasterData].[CHARACTERISTIC_DETAIL]",
          "ObjectType": 0
       }
    ],
-   "UiHint": "PRE-DEPLOY.PR",
+   "UiHint": "DEVELOP.TitanERP",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

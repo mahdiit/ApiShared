@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -38,11 +39,26 @@ namespace ApiShared.Core.Data.Excel.ExcelHelper
             else
                 props = typeof(T).GetProperties();
 
+            var metadataType = typeof(T).GetCustomAttributes(typeof(MetadataTypeAttribute), true)
+                .OfType<MetadataTypeAttribute>().FirstOrDefault();
+
+
+            var metaDataProps = metadataType?.MetadataClassType.GetProperties();
+
             foreach (var prop in props)
             {
                 if (HasAttributeOnly)
                 {
                     var attr = prop.GetCustomAttributes(true).FirstOrDefault(c => c is ExcelColumnAttribute);
+                    if(attr == null && metaDataProps != null)
+                    {
+                        var metaProp = metaDataProps.FirstOrDefault(x => x.Name == prop.Name);
+                        if(metaProp != null)
+                        {
+                            attr = metaProp.GetCustomAttributes(true).FirstOrDefault(c => c is ExcelColumnAttribute);
+                        }
+                    }
+
                     if (attr != null)
                     {
                         var excelAttr = (ExcelColumnAttribute)attr;
