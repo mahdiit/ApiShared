@@ -11,12 +11,12 @@ namespace ExcelHelper
 {
     public class ExcelListImporter : IDisposable
     {
-        private Stream stream;
-        private ExcelWorksheet currentWorksheet;
-        private ExcelPackage package;
-        private ExcelWorkbook workbook;
+        private Stream? stream;
+        private ExcelWorksheet? currentWorksheet;
+        private ExcelPackage? package;
+        private ExcelWorkbook? workbook;
 
-        public Exception LoadFileException { get; set; }
+        public Exception? LoadFileException { get; set; }
 
         public ExcelListImporter SetStream(Stream excelStream)
         {
@@ -48,6 +48,9 @@ namespace ExcelHelper
 
         public bool SetCurrentSheet(string sheetName)
         {
+            if(workbook == null)
+                return false;
+
             if (workbook.Worksheets.Any(c => c.Name == sheetName))
             {
                 currentWorksheet = workbook.Worksheets[sheetName];
@@ -61,6 +64,9 @@ namespace ExcelHelper
 
         public List<T> GetList<T>() where T : new()
         {
+            if (currentWorksheet == null)
+                return new();
+
             List<T> collection = new List<T>();
             try
             {
@@ -89,14 +95,34 @@ namespace ExcelHelper
                 collection = dt.AsEnumerable().Select(row =>
                 {
                     T item = Activator.CreateInstance<T>();
-                    foreach (var pro in properties)
-                    {
-                        if (columnNames.Contains(pro.Name) || columnNames.Contains(pro.Name.ToUpper()))
+                    if (item != null)
+                        foreach (var pro in properties)
                         {
-                            PropertyInfo pI = item.GetType().GetProperty(pro.Name);
-                            pro.SetValue(item, (row[pro.Name] == DBNull.Value) ? null : Convert.ChangeType(row[pro.Name], (Nullable.GetUnderlyingType(pI.PropertyType) == null) ? pI.PropertyType : Type.GetType(pI.PropertyType.GenericTypeArguments[0].FullName)));
+                            if (columnNames.Contains(pro.Name) || columnNames.Contains(pro.Name.ToUpper()))
+                            {
+                                PropertyInfo? pI = item.GetType().GetProperty(pro.Name);
+                                if (pI != null)
+                                {
+                                    Type? propertyType = null;
+                                    if(Nullable.GetUnderlyingType(pI.PropertyType) == null)
+                                    {
+                                        if (pI.PropertyType.GenericTypeArguments.Length > 0)
+                                        {
+                                            var gentType = pI.PropertyType.GenericTypeArguments[0].FullName;
+                                            if (gentType != null)
+                                                propertyType = Type.GetType(gentType);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        propertyType = pI.PropertyType;
+                                    }
+
+                                    if (propertyType != null)
+                                        pro.SetValue(item, (row[pro.Name] == DBNull.Value) ? null : Convert.ChangeType(row[pro.Name], propertyType));
+                                }
+                            }
                         }
-                    }
                     return item;
                 }).ToList();
 

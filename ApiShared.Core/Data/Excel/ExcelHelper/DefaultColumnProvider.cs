@@ -10,10 +10,10 @@ namespace ExcelExporter
     public class DefaultColumnProvider : IColumnProvider
     {
         public bool HasAttributeOnly { get; set; }
-        public Type DynamicType { get; set; }
+        public Type? DynamicType { get; set; }
         public NameType NamingType { get; set; }
 
-        public DefaultColumnProvider(bool hasAttributeOnly = false, NameType namingType = NameType.Property, Type defaultType = null)
+        public DefaultColumnProvider(bool hasAttributeOnly = false, NameType namingType = NameType.Property, Type? defaultType = null)
         {
             HasAttributeOnly = hasAttributeOnly;
             DynamicType = defaultType;
@@ -46,8 +46,10 @@ namespace ExcelExporter
                     if (attr != null)
                     {
                         var excelAttr = (ExcelColumnAttribute)attr;
-                        excelAttr.SourceName = prop.Name;
-                        if (excelAttr.Name.IsNull())
+                        if (excelAttr.SourceName == null)
+                            excelAttr.SourceName = prop.Name;
+
+                        if (excelAttr.Name == null)
                             excelAttr.Name = excelAttr.SourceName;
 
                         result.Add(excelAttr);
@@ -78,7 +80,9 @@ namespace ExcelExporter
                     if (attr != null)
                     {
                         var excelAttr = (ExcelColumnAttribute)attr;
-                        excelAttr.SourceName = prop.Name;
+                        if (excelAttr.SourceName == null)
+                            excelAttr.SourceName = prop.Name;
+
                         result.Add(excelAttr);
                     }
                 }

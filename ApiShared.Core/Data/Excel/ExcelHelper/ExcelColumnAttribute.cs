@@ -10,7 +10,7 @@ namespace ExcelExporter
         /// <summary>
         /// نام ستون در خروجی
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// آیا به دنبال مقدار در دیتاها بگردد
@@ -25,16 +25,16 @@ namespace ExcelExporter
         /// <summary>
         /// فرمت تاریخ فقط در مورد تاریخ اعمال میشود
         /// </summary>
-        public string DateFormat { get; set; }
+        public string? DateFormat { get; set; }
 
         /// <summary>
         /// فرمت خروجی ستون در اکسل
         /// </summary>
-        public string ColumnFormat { get; set; }
+        public string? ColumnFormat { get; set; }
 
         /// <summary>
         /// نام ستون در دادهها
         /// </summary>
-        public string SourceName { get; set; }
+        public string? SourceName { get; set; }
     }
 }

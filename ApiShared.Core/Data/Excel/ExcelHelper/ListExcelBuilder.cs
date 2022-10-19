@@ -21,29 +21,29 @@ namespace ExcelExporter
     /// <param name="excelColumn"></param>
     /// <param name="rowData"></param>
     /// <returns></returns>
-    public delegate bool RenderColumn(string column, object value, ExcelRange excelColumn, Dictionary<string, object> rowData);
+    public delegate bool RenderColumn(string column, object? value, ExcelRange excelColumn, Dictionary<string, object?> rowData);
     public delegate void CreateWorksheet(ExcelWorksheet ws);
     public delegate void CreateColumn(ExcelColumn column);
 
     public class ListExcelBuilder : IDisposable, IListExcelBuilder
     {
-        private MemoryStream memoryStream;
-        private ExcelPackage xlsx;
+        private MemoryStream? memoryStream;
+        private ExcelPackage? xlsx;
 
         /// <summary>
         /// در صورت نیاز به تغییر در هنگام خروجی گرفتن استفاده شود
         /// </summary>
-        public RenderColumn OnRenderColumn { get; set; }
+        public RenderColumn? OnRenderColumn { get; set; }
 
         /// <summary>
         /// تغییر تنظیمات
         /// </summary>
-        public CreateWorksheet OnCreateWorksheet { get; set; }
+        public CreateWorksheet? OnCreateWorksheet { get; set; }
 
         /// <summary>
         /// تغییر ستونها
         /// </summary>
-        public CreateColumn OnCreateColumn { get; set; }
+        public CreateColumn? OnCreateColumn { get; set; }
 
         IColumnProvider columnProvider;
         IValueProvider valueProvider;
@@ -98,17 +98,23 @@ namespace ExcelExporter
             return this;
         }
 
-        public string CellStyleName { get; set; }
-        public string HeaderStyleName { get; set; }
+        public string? CellStyleName { get; set; }
+        public string? HeaderStyleName { get; set; }
         public bool IsRTL { get; set; } = true;
 
         public ExcelNamedStyleXml CreateStyle(string name)
         {
+            if (xlsx == null)
+                throw new Exception("document is empty");
+
             return xlsx.Workbook.Styles.CreateNamedStyle(name);
         }
 
         public ListExcelBuilder AddSheet<T>(string name, List<T> data, bool autoFitColumns = true)
         {
+            if (xlsx == null)
+                throw new Exception("document is empty");
+
             var colInfoList = columnProvider.GetColumns<T>();
 
             var ws = xlsx.Workbook.Worksheets.Add(name);
@@ -138,14 +144,18 @@ namespace ExcelExporter
                     OnCreateColumn(ws.Column(i + 2));
             }
 
+            var sourceColumns = colInfoList.Where(c => c.HasValue && c.SourceName != null).Select(c => c.SourceName).ToArray();
             foreach (var row in data)
             {
                 totalCount++;
 
+                if (row == null)
+                    continue;
+
                 ws.Cells[totalCount + 1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Cells[totalCount + 1, 1].Value = totalCount;
 
-                var colsData = valueProvider.GetValues(colInfoList.Where(c => c.HasValue).Select(c => c.SourceName).ToArray(), row);
+                var colsData = valueProvider.GetValues(sourceColumns, row);
                 var colsIndex = 0;
                 foreach (var colData in colsData)
                 {
@@ -161,15 +171,26 @@ namespace ExcelExporter
                     if (!isRenderFinish && colInfoList[colsIndex].HasValue)
                     {
                         col.Value = colData.Value;
+                        var columnFormat = colInfoList[colsIndex].ColumnFormat;
+                        var dateFormat = colInfoList[colsIndex].DateFormat;
+
                         if (colInfoList[colsIndex].ConvertToPersianDate && colData.Value is DateTime)
                         {
                             var vDate = new VDate((DateTime)colData.Value);
-                            col.Value = vDate.ToString(colInfoList[colsIndex].DateFormat.IsNull() ? "$yyyy/$MM/$dd" : colInfoList[colsIndex].DateFormat);
-                        }else if (colInfoList[colsIndex].ColumnFormat.IsNull() && colData.Value is DateTime)
+                            if (dateFormat == null)
+                            {
+                                col.Value = vDate.ToString("$yyyy/$MM/$dd");
+                            }
+                            else
+                            {
+                                col.Value = vDate.ToString(dateFormat);
+                            }
+                        }
+                        else if (columnFormat == null && colData.Value is DateTime)
                         {
                             col.Style.Numberformat.Format = "yyyy/MM/dd HH:mm:ss";
                         }
-                        else if (!string.IsNullOrEmpty(colInfoList[colsIndex].ColumnFormat))
+                        else if (columnFormat != null)
                             col.Style.Numberformat.Format = colInfoList[colsIndex].ColumnFormat;
                     }
 
@@ -193,6 +214,9 @@ namespace ExcelExporter
 
         public byte[] Build()
         {
+            if (xlsx == null || memoryStream == null)
+                throw new Exception("document is empty");
+
             xlsx.Save();
             return memoryStream.ToArray();
         }

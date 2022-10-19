@@ -26,7 +26,7 @@ namespace ApiShared.GatewayUI.Pages
             var mode = Request.Query["mode"];
             var id = Request.Query["id"];
 
-            if(mode == "Edit")
+            if (mode == "Edit")
             {
                 var item = Datasource.ConfigData.First(x => x.Id == id);
                 DownstreamHost = item.DownstreamHost;
@@ -41,6 +41,33 @@ namespace ApiShared.GatewayUI.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var mode = Request.Query["mode"];
+            var id = Request.Query["id"];
+            if (mode == "Edit")
+            {
+                var item = Datasource.ConfigData.First(x => x.Id == id);
+                item.DownstreamHost = DownstreamHost;
+                item.DownstreamPathTemplate = DownstreamPathTemplate;
+                item.DownstreamPort = DownstreamPort;
+                item.DownstreamScheme = DownstreamScheme;
+
+                item.UpstreamPathTemplate = UpstreamPathTemplate;
+                item.UpstreamHttpMethod = UpstreamHttpMethod;
+            }
+            else
+            {
+                var item = new RoutingViewModel();
+                item.DownstreamHost = DownstreamHost;
+                item.DownstreamPathTemplate = DownstreamPathTemplate;
+                item.DownstreamPort = DownstreamPort;
+                item.DownstreamScheme = DownstreamScheme;
+
+                item.UpstreamPathTemplate = UpstreamPathTemplate;
+                item.UpstreamHttpMethod = UpstreamHttpMethod;
+
+                Datasource.ConfigData.Add(item);
+            }
+
 
             return Redirect("Index");
         }
