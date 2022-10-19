@@ -14,8 +14,8 @@ namespace ApiShared.Core.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly Logger<ExceptionMiddleware> _logger;
-        public ExceptionMiddleware(RequestDelegate next, Logger<ExceptionMiddleware> logger)
+        private readonly ILogger<ExceptionMiddleware> _logger;
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _logger = logger;
             _next = next;

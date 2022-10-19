@@ -61,7 +61,8 @@ namespace ApiShared.Sample
             myBuilder.DataSource = "192.168.2.65";
             myBuilder.IntegratedSecurity = true;
 
-            var result3 = sqlExcelExport.GetFile<CHARACTERISTIC_DETAIL>(new SqlQueryDto(myBuilder.ConnectionString, "sELECT * FROM MasterData.CHARACTERISTIC_DETAIL"),
+            var result3 = sqlExcelExport.GetFile<CHARACTERISTIC_DETAIL>(
+                new SqlQueryDto(myBuilder.ConnectionString, "sELECT * FROM MasterData.CHARACTERISTIC_DETAIL"),
                 new SqlExcelExportOption(new List<string> { "CH_3" })
             {
                 Rtl = false,
