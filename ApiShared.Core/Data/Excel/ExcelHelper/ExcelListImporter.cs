@@ -104,14 +104,12 @@ namespace ApiShared.Core.Data.Excel.ExcelHelper
                                 if (pI != null)
                                 {
                                     Type? propertyType = null;
-                                    if (Nullable.GetUnderlyingType(pI.PropertyType) == null)
+                                    if (Nullable.GetUnderlyingType(pI.PropertyType) == null &&
+                                    pI.PropertyType.GenericTypeArguments.Length > 0)
                                     {
-                                        if (pI.PropertyType.GenericTypeArguments.Length > 0)
-                                        {
-                                            var gentType = pI.PropertyType.GenericTypeArguments[0].FullName;
-                                            if (gentType != null)
-                                                propertyType = Type.GetType(gentType);
-                                        }
+                                        var gentType = pI.PropertyType.GenericTypeArguments[0].FullName;
+                                        if (gentType != null)
+                                            propertyType = Type.GetType(gentType);
                                     }
                                     else
                                     {

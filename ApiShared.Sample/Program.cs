@@ -66,7 +66,7 @@ namespace ApiShared.Sample
             {
                 Rtl = false,
                 AutoFitColumns = true,
-                SheetTitles = new List<string>() { "sHEET 1" },
+                //SheetTitles = new List<string>() { "sHEET 1" },
                 HasRowNumber = false,                
             });
 
@@ -81,6 +81,16 @@ namespace ApiShared.Sample
             else
                 Console.WriteLine("no data");
 
+            var exportedFile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\resutl2.xlsx");
+            using var info = exportedFile.OpenRead();
+            ExcelListImporter excelListImporter = new ExcelListImporter();
+
+            excelListImporter.SetStream(info).LoadFile();
+            excelListImporter.SetCurrentSheet("CH_3");
+
+            var result4 = excelListImporter.GetList<CHARACTERISTIC_DETAIL>();
+            Console.WriteLine(result4.Count);
+               
             Console.WriteLine("End");
             Console.ReadKey();
         }

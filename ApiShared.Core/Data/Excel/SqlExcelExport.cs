@@ -152,7 +152,7 @@ namespace ApiShared.Core.Data.Excel
                         var j = option.HasRowNumber ? 1 : 0;
                         foreach (var item in option.ColumnNames)
                         {
-                            var col = ws.Cells[totalCount + 2, j + 1];
+                            var col = ws.Cells[totalCount + (hasHeader ? 2 : 1), j + 1];
                             col.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                             var colValue = reader.GetValue(colPos[item.Key]);
