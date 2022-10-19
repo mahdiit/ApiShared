@@ -11,7 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ExcelExporter
+namespace ApiShared.Core.Data.Excel.ExcelHelper
 {
     /// <summary>
     /// در صورتی که ستون رند شد صحیح و در غیر این صورت False

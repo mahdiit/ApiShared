@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExcelExporter
+namespace ApiShared.Core.Data.Excel.ExcelHelper
 {
     public interface IValueProvider
     {
@@ -23,7 +23,7 @@ namespace ExcelExporter
 
         public object? GetValue(string name, object classObject)
         {
-            if(NamingType == NameType.Property)
+            if (NamingType == NameType.Property)
                 return classObject.GetType().GetProperty(name)?.GetValue(classObject, null);
             else
                 return classObject.GetType().GetField(name)?.GetValue(classObject);

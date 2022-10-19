@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExcelExporter
+namespace ApiShared.Core.Data.Excel.ExcelHelper
 {
     public class DefaultColumnProvider : IColumnProvider
     {

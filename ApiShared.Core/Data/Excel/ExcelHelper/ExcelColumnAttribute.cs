@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExcelExporter
+namespace ApiShared.Core.Data.Excel.ExcelHelper
 {
     public class ExcelColumnAttribute : Attribute
     {

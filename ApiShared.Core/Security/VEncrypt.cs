@@ -75,12 +75,12 @@ namespace ApiShared.Core.Security
             MemoryStream ms = new MemoryStream();
 
             // Create a symmetric algorithm. 
-            // We are going to use Rijndael because it is strong and
+            // We are going to use Aes because it is strong and
             // available on all platforms. 
             // You can use other algorithms, to do so substitute the
             // next line with something like 
             //      TripleDES alg = TripleDES.Create(); 
-            Rijndael alg = Rijndael.Create();
+            Aes alg = Aes.Create();
 
             // Now set the key and the IV. 
             // We need the IV (Initialization Vector) because
@@ -147,10 +147,10 @@ namespace ApiShared.Core.Security
             // function that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first getting
             // 32 bytes for the Key 
-            // (the default Rijndael key length is 256bit = 32bytes)
+            // (the default Aes key length is 256bit = 32bytes)
             // and then 16 bytes for the IV. 
             // IV should always be the block size, which is by default
-            // 16 bytes (128 bit) for Rijndael. 
+            // 16 bytes (128 bit) for Aes. 
             // If you are using DES/TripleDES/RC2 the block size is
             // 8 bytes and so should be the IV size. 
             // You can also read KeySize/BlockSize properties off
@@ -186,10 +186,10 @@ namespace ApiShared.Core.Security
             // that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first getting
             // 32 bytes for the Key 
-            // (the default Rijndael key length is 256bit = 32bytes)
+            // (the default Aes key length is 256bit = 32bytes)
             // and then 16 bytes for the IV. 
             // IV should always be the block size, which is by default
-            // 16 bytes (128 bit) for Rijndael. 
+            // 16 bytes (128 bit) for Aes. 
             // If you are using DES/TripleDES/RC2 the block size is 8
             // bytes and so should be the IV size. 
             // You can also read KeySize/BlockSize properties off the
@@ -217,7 +217,7 @@ namespace ApiShared.Core.Security
                 new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,
             0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
-            Rijndael alg = Rijndael.Create();
+            Aes alg = Aes.Create();
             alg.Key = pdb.GetBytes(32);
             alg.IV = pdb.GetBytes(16);
 
@@ -266,12 +266,12 @@ namespace ApiShared.Core.Security
             MemoryStream ms = new MemoryStream();
 
             // Create a symmetric algorithm. 
-            // We are going to use Rijndael because it is strong and
+            // We are going to use Aes because it is strong and
             // available on all platforms. 
             // You can use other algorithms, to do so substitute the next
             // line with something like 
             //     TripleDES alg = TripleDES.Create(); 
-            Rijndael alg = Rijndael.Create();
+            Aes alg = Aes.Create();
 
             // Now set the key and the IV. 
             // We need the IV (Initialization Vector) because the algorithm
@@ -339,10 +339,10 @@ namespace ApiShared.Core.Security
             // the function that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first
             // getting 32 bytes for the Key 
-            // (the default Rijndael key length is 256bit = 32bytes)
+            // (the default Aes key length is 256bit = 32bytes)
             // and then 16 bytes for the IV. 
             // IV should always be the block size, which is by
-            // default 16 bytes (128 bit) for Rijndael. 
+            // default 16 bytes (128 bit) for Aes. 
             // If you are using DES/TripleDES/RC2 the block size is
             // 8 bytes and so should be the IV size. 
             // You can also read KeySize/BlockSize properties off
@@ -378,10 +378,10 @@ namespace ApiShared.Core.Security
             //function that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first getting
             // 32 bytes for the Key 
-            // (the default Rijndael key length is 256bit = 32bytes)
+            // (the default Aes key length is 256bit = 32bytes)
             // and then 16 bytes for the IV. 
             // IV should always be the block size, which is by default
-            // 16 bytes (128 bit) for Rijndael. 
+            // 16 bytes (128 bit) for Aes. 
             // If you are using DES/TripleDES/RC2 the block size is
             // 8 bytes and so should be the IV size. 
 
@@ -409,7 +409,7 @@ namespace ApiShared.Core.Security
             PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
                 new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,
             0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
-            Rijndael alg = Rijndael.Create();
+            Aes alg = Aes.Create();
 
             alg.Key = pdb.GetBytes(32);
             alg.IV = pdb.GetBytes(16);

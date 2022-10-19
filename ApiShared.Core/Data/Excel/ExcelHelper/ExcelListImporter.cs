@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ExcelHelper
+namespace ApiShared.Core.Data.Excel.ExcelHelper
 {
     public class ExcelListImporter : IDisposable
     {
@@ -48,7 +48,7 @@ namespace ExcelHelper
 
         public bool SetCurrentSheet(string sheetName)
         {
-            if(workbook == null)
+            if (workbook == null)
                 return false;
 
             if (workbook.Worksheets.Any(c => c.Name == sheetName))
@@ -104,7 +104,7 @@ namespace ExcelHelper
                                 if (pI != null)
                                 {
                                     Type? propertyType = null;
-                                    if(Nullable.GetUnderlyingType(pI.PropertyType) == null)
+                                    if (Nullable.GetUnderlyingType(pI.PropertyType) == null)
                                     {
                                         if (pI.PropertyType.GenericTypeArguments.Length > 0)
                                         {
@@ -119,7 +119,7 @@ namespace ExcelHelper
                                     }
 
                                     if (propertyType != null)
-                                        pro.SetValue(item, (row[pro.Name] == DBNull.Value) ? null : Convert.ChangeType(row[pro.Name], propertyType));
+                                        pro.SetValue(item, row[pro.Name] == DBNull.Value ? null : Convert.ChangeType(row[pro.Name], propertyType));
                                 }
                             }
                         }

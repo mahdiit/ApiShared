@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExcelExporter
+namespace ApiShared.Core.Data.Excel.ExcelHelper
 {
     public sealed class ColumnsFormat
     {

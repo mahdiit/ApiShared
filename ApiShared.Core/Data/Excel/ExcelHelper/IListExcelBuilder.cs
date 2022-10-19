@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExcelExporter
+namespace ApiShared.Core.Data.Excel.ExcelHelper
 {
     public interface IListExcelBuilder
     {

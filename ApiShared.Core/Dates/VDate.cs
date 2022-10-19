@@ -52,23 +52,14 @@ namespace ApiShared.Core.Dates
             {
                 if (month < 1)
                 {
-                    while (month < 1)
-                    {
-                        year--;
-                        maxMonth = DateInfo.Cal.GetMonthsInYear(year);
-                        month += maxMonth;
-                    }
+                    month = 1;
                 }
-                else
+                else if (month > maxMonth)
                 {
-                    while (month > maxMonth)
-                    {
-                        year++;
-                        maxMonth = DateInfo.Cal.GetMonthsInYear(year);
-                        month -= maxMonth;
-                    }
+                    month = maxMonth;
                 }
             }
+
             if (year > DateInfo.MaxYear || year < DateInfo.MinYear)
             {
                 throw new Exception("مقادیر سال و ماه نامعتبر است");
@@ -89,23 +80,11 @@ namespace ApiShared.Core.Dates
             {
                 if (day < 1)
                 {
-                    while (day < 1)
-                    {
-                        month--;
-                        FixMonthYear(ref year, ref month);
-                        day += maxDay;
-                        maxDay = DateInfo.Cal.GetDaysInMonth(year, month);
-                    }
+                    day = 1;
                 }
-                else
+                else if (day > maxDay)
                 {
-                    while (day > maxDay)
-                    {
-                        month++;
-                        FixMonthYear(ref year, ref month);
-                        day -= maxDay;
-                        maxDay = DateInfo.Cal.GetDaysInMonth(year, month);
-                    }
+                    day = maxDay;
                 }
             }
             FixMonthYear(ref year, ref month);
