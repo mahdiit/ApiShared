@@ -1,126 +1,18 @@
 {
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:59120"
+    "BaseUrl": "http://localhost:8080"
   },
   "Routes": [    
     {
-      "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 8000
-        }
-      ],
-      "UpstreamPathTemplate": "/api-user/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 1050
-        }
-      ],
-      "UpstreamPathTemplate": "/api-prod/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "ws",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 1050
-        }
-      ],
-      "UpstreamPathTemplate": "/api-prod-hub/{url}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/Survey/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 8001
-        }
-      ],
-      "UpstreamPathTemplate": "/api-survey/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
       "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 1002
+          "Port": 9999
         }
       ],
-      "UpstreamPathTemplate": "/api-homedealer/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/MasterService/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 1070
-        }
-      ],
-      "UpstreamPathTemplate": "/api-master/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/Satisfaction/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 1004
-        }
-      ],
-      "UpstreamPathTemplate": "/api-satisfaction/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/WareHouse/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 1030
-        }
-      ],
-      "UpstreamPathTemplate": "/api-wareHouse/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/WP/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7001
-        }
-      ],
-      "UpstreamPathTemplate": "/api-wp/{url}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 6005
-        }
-      ],
-      "UpstreamPathTemplate": "/api-sale/{url}",
+      "UpstreamPathTemplate": "/erp/{url}",
       "UpstreamHttpMethod": [ "POST", "GET" ]
     }
   ]

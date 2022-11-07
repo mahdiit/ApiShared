@@ -2,6 +2,8 @@ using Microsoft.IdentityModel.Logging;
 using Ocelot.Administration;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using NLog;
+using NLog.Web;
 
 namespace ApiShared.Gateway
 {
@@ -14,8 +16,13 @@ namespace ApiShared.Gateway
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-            builder.Services.AddOcelot().AddAdministration("/cfgedit", "6y4ALTNTey8xueQJPTMfkYNx");
+            //builder.Services.AddControllers();
+            builder.Services.AddOcelot()
+                .AddAdministration("/cfgedit", "6y4ALTNTey8xueQJPTMfkYNx");
+            
+            // NLog: Setup NLog for Dependency injection
+            builder.Logging.ClearProviders();
+            builder.Host.UseNLog();
 
             var app = builder.Build();
 
@@ -25,13 +32,13 @@ namespace ApiShared.Gateway
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseWebSockets();            
+            app.UseWebSockets();                        
+            app.UseOcelot().Wait();
+
             app.UseRouting();
             app.UseCors(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            app.UseAuthorization();
-            app.UseOcelot();
-
-            app.MapControllers();
+            //app.MapControllers();
+            //app.UseAuthorization();           
             app.Run();
         }
     }
